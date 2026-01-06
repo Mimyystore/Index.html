@@ -93,6 +93,11 @@
         transform:rotate(-90deg);
     }
 
+    /* garante que, sem JS, fique colapsado por padrão (melhor fallback) */
+    .category.collapsed .grid{
+        max-height: 0 !important;
+    }
+
     .product{
         background:rgba(0,0,0,0.85);
         border:1px solid #7a0016;
@@ -176,12 +181,12 @@ function comprar(produto){
 /* Comportamento:
    - clica no <h2> da categoria para abrir/fechar
    - acessível via teclado (Enter / Space)
-   - apenas neste arquivo HTML foi alterado
+   - categorias começam FECHADAS por padrão
 */
 document.addEventListener('DOMContentLoaded', function() {
     const categories = document.querySelectorAll('.category');
 
-    categories.forEach(cat => {
+    categories.forEach((cat, index) => {
         const h2 = cat.querySelector('h2');
         const grid = cat.querySelector('.grid');
 
@@ -193,27 +198,34 @@ document.addEventListener('DOMContentLoaded', function() {
         // Acessibilidade
         h2.setAttribute('role', 'button');
         h2.setAttribute('tabindex', '0');
-        h2.setAttribute('aria-expanded', 'true');
 
-        // Define max-height inicial para permitir transição suave
-        // Se grid estiver vazio, evita valores estranhos
-        function setInitialMaxHeight() {
-            if (grid) {
-                grid.style.maxHeight = grid.scrollHeight ? grid.scrollHeight + 'px' : '0px';
-            }
+        // Garante que o grid tenha um id para aria-controls (melhora a acessibilidade)
+        if (grid) {
+            if (!grid.id) grid.id = 'category-grid-' + index;
+            h2.setAttribute('aria-controls', grid.id);
         }
-        setInitialMaxHeight();
+
+        // Inicia todas as categorias fechadas:
+        cat.classList.add('collapsed');
+        h2.setAttribute('aria-expanded', 'false');
+        if (grid) {
+            // Força maxHeight 0 para garantir estado colapsado inicial e animação correta ao abrir
+            grid.style.maxHeight = '0px';
+        }
 
         // Função que alterna o estado colapsado
         function toggleCategory() {
             const isCollapsed = cat.classList.toggle('collapsed');
             if (isCollapsed) {
                 // fecha
-                grid.style.maxHeight = '0px';
+                if (grid) grid.style.maxHeight = '0px';
                 h2.setAttribute('aria-expanded', 'false');
             } else {
                 // abre: ajusta maxHeight para a altura atual do conteúdo
-                grid.style.maxHeight = grid.scrollHeight + 'px';
+                if (grid) {
+                    // calcula e aplica a altura real para acionar a transição
+                    grid.style.maxHeight = grid.scrollHeight + 'px';
+                }
                 h2.setAttribute('aria-expanded', 'true');
             }
         }
@@ -229,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Recalcula maxHeight no resize para manter a transição correta
         window.addEventListener('resize', function() {
-            if (!cat.classList.contains('collapsed')) {
+            if (!cat.classList.contains('collapsed') && grid) {
                 grid.style.maxHeight = grid.scrollHeight + 'px';
             }
         });
@@ -365,4 +377,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </footer>
 
 </body> 
-</html>
+                   </html>
