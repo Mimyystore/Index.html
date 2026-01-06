@@ -55,17 +55,42 @@
         box-shadow:0 0 18px rgba(120,0,25,0.5);
     }
 
+    /* título das categorias — agora clicável para abrir/fechar */
     .category h2{
         color:#ff2b3b;
         border-left:6px solid #7a0016;
         padding-left:10px;
         margin-bottom:18px;
+
+        display:flex;
+        align-items:center;
+        justify-content:space-between; /* espaço para o ícone */
+        gap:12px;
+        cursor:pointer;
+        user-select:none;
     }
 
+    .toggle {
+        color:#ffd0d3;
+        font-size:16px;
+        transition:transform .2s ease;
+        margin-left:10px;
+    }
+
+    /* área que contém os produtos — faremos animação via max-height */
     .grid{
         display:grid;
         grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
         gap:18px;
+
+        overflow:hidden;
+        transition: max-height .25s ease;
+        /* max-height será ajustado por JS para suavizar a transição */
+    }
+
+    /* estado colapsado para a categoria */
+    .category.collapsed .toggle{
+        transform:rotate(-90deg);
     }
 
     .product{
@@ -146,6 +171,70 @@ function comprar(produto){
     const telefone = "5533997305062";
     window.location.href = "https://wa.me/" + telefone + "?text=" + msg;
 }
+
+/* --- Código adicionado: toggles para abrir/fechar categorias --- */
+/* Comportamento:
+   - clica no <h2> da categoria para abrir/fechar
+   - acessível via teclado (Enter / Space)
+   - apenas neste arquivo HTML foi alterado
+*/
+document.addEventListener('DOMContentLoaded', function() {
+    const categories = document.querySelectorAll('.category');
+
+    categories.forEach(cat => {
+        const h2 = cat.querySelector('h2');
+        const grid = cat.querySelector('.grid');
+
+        // Cria e anexa o ícone de toggle no título
+        const icon = document.createElement('i');
+        icon.className = 'fa-solid fa-chevron-down toggle';
+        h2.appendChild(icon);
+
+        // Acessibilidade
+        h2.setAttribute('role', 'button');
+        h2.setAttribute('tabindex', '0');
+        h2.setAttribute('aria-expanded', 'true');
+
+        // Define max-height inicial para permitir transição suave
+        // Se grid estiver vazio, evita valores estranhos
+        function setInitialMaxHeight() {
+            if (grid) {
+                grid.style.maxHeight = grid.scrollHeight ? grid.scrollHeight + 'px' : '0px';
+            }
+        }
+        setInitialMaxHeight();
+
+        // Função que alterna o estado colapsado
+        function toggleCategory() {
+            const isCollapsed = cat.classList.toggle('collapsed');
+            if (isCollapsed) {
+                // fecha
+                grid.style.maxHeight = '0px';
+                h2.setAttribute('aria-expanded', 'false');
+            } else {
+                // abre: ajusta maxHeight para a altura atual do conteúdo
+                grid.style.maxHeight = grid.scrollHeight + 'px';
+                h2.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // Eventos de clique e teclado
+        h2.addEventListener('click', toggleCategory);
+        h2.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleCategory();
+            }
+        });
+
+        // Recalcula maxHeight no resize para manter a transição correta
+        window.addEventListener('resize', function() {
+            if (!cat.classList.contains('collapsed')) {
+                grid.style.maxHeight = grid.scrollHeight + 'px';
+            }
+        });
+    });
+});
 </script>
 </head>
 
