@@ -10,418 +10,402 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-    *{box-sizing:border-box;}
-    body{font-family:'Fredoka', Arial, Helvetica, sans-serif; margin:0; background:#000; color:#fff; background-size:cover; background-attachment:fixed; background-position:center;}
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Fredoka', Arial, Helvetica, sans-serif;
+    margin:0;
+    color:#fff;
+    /* Gradient de fallback + opcional imagem (substitua a url se quiser).
+       Se não tiver imagem, o gradient garante que não fique preto. */
+    background:
+      linear-gradient(180deg, rgba(6,42,50,0.45), rgba(8,12,20,0.45)),
+      url('SUA-IMAGEM-DE-FUNDO.jpg') center/cover no-repeat;
+    background-color:#083042; /* fallback sólido */
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+  }
 
-    header{
-        background:linear-gradient(180deg, #1a0004, #000);
-        padding:18px 15px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:12px;
-        border-bottom:2px solid #7a0016;
-    }
-    .brand{
-        display:flex;
-        align-items:center;
-        gap:12px;
-    }
-    header img{height:64px; border-radius:8px;}
-    h1{margin:0; font-size:22px; color:#ff1a2a; letter-spacing:1px;}
-    .tagline{color:#ffd8da; font-size:13px; margin-top:4px;}
+  header{
+    background:linear-gradient(180deg, rgba(26,0,4,0.70), rgba(0,0,0,0.45));
+    padding:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(4px);
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  header img{height:64px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.45);}
+  h1{margin:0;font-size:22px;color:#ffcfd2;letter-spacing:1px;}
+  .tagline{color:#ffd8da;font-size:13px;margin-top:4px;opacity:0.95;}
 
-    /* resumo de contagens */
-    .summary{
-        margin-left:18px;
-        font-size:13px;
-        color:#ffd8da;
-        display:flex;
-        gap:12px;
-        align-items:center;
-    }
-    .badge-summary{
-        background:rgba(255,26,42,0.12);
-        border:1px solid #7a0016;
-        padding:6px 10px;
-        border-radius:999px;
-        color:#ffb7bb;
-        font-weight:700;
-    }
+  .controls{display:flex;gap:10px;align-items:center;}
+  .btn{background:#7a0016;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;display:inline-flex;gap:8px;align-items:center;}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#ffd6d8;}
+  .btn.small{padding:6px 8px;font-size:13px;}
 
-    .controls{
-        display:flex;
-        gap:10px;
-        align-items:center;
-    }
-    .btn{
-        background:#7a0016;
-        color:#fff;
-        border:none;
-        padding:8px 12px;
-        border-radius:8px;
-        cursor:pointer;
-        font-weight:700;
-        display:inline-flex;
-        gap:8px;
-        align-items:center;
-    }
-    .btn.ghost{background:transparent; border:1px solid #7a0016; color:#ffd6d8;}
-    .btn.small{padding:6px 8px; font-size:13px;}
+  .container{max-width:1100px;margin:20px auto;padding:0 15px;}
 
-    .container{max-width:1100px; margin:20px auto; padding:0 15px;}
+  /* categorias com leve clareamento */
+  .category{
+    margin-bottom:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+    border-radius:12px;
+    padding:14px;
+    backdrop-filter: blur(4px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  }
 
-    .category{
-        margin-bottom:24px;
-        background:rgba(20,0,0,0.75);
-        border:1px solid #7a0016;
-        border-radius:12px;
-        padding:14px;
-        backdrop-filter: blur(3px);
-        box-shadow:0 0 16px rgba(120,0,25,0.45);
-    }
+  .category h2{
+    color:#ffb3b8;
+    border-left:6px solid rgba(255,255,255,0.06);
+    padding-left:10px;
+    margin:0 0 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    cursor:pointer;
+    user-select:none;
+    font-weight:700;
+    font-size:15px;
+  }
+  /* ícone da categoria (reduzido) */
+  .category h2 .cat-icon{ font-size:14px; display:inline-flex; align-items:center; gap:8px; color:#ffd0d3; }
 
-    /* título das categorias — clicável */
-    .category h2{
-        color:#ff2b3b;
-        border-left:6px solid #7a0016;
-        padding-left:10px;
-        margin:0 0 14px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:12px;
-        cursor:pointer;
-        user-select:none;
-        font-weight:700;
-        font-size:16px;
-    }
-    /* ícone principal da categoria — reduzido ainda mais */
-    .category h2 i.category-icon{ font-size:12px; color:#ffd0d3; margin-right:8px; }
+  .toggle{ color:#ffd0d3; font-size:13px; transition:transform .18s ease; margin-left:10px; }
 
-    /* contador/badge na categoria */
-    .count-badge{
-        background: #ff1a2a;
-        color:#fff;
-        font-weight:700;
-        padding:4px 8px;
-        border-radius:999px;
-        font-size:12px;
-        margin-left:8px;
-        box-shadow:0 2px 6px rgba(0,0,0,0.4);
-    }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:12px;
+    overflow:hidden;
+    transition: max-height .25s ease;
+  }
 
-    .toggle{ color:#ffd0d3; font-size:13px; transition:transform .18s ease; margin-left:10px; }
+  .category.collapsed .toggle{ transform:rotate(-90deg); }
+  .category.collapsed .grid{ max-height:0 !important; }
 
-    .grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-        gap:12px;
-        overflow:hidden;
-        transition: max-height .25s ease;
-    }
+  .product{
+    background:linear-gradient(180deg, rgba(0,0,0,0.44), rgba(0,0,0,0.34));
+    border:1px solid rgba(255,255,255,0.03);
+    border-radius:10px;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    transition:transform .18s ease, box-shadow .18s ease;
+    position:relative;
+    min-height:170px;
+  }
+  .product:hover{ transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,0.45); }
 
-    .category.collapsed .toggle{ transform:rotate(-90deg); }
-    .category.collapsed .grid{ max-height:0 !important; }
+  .product img{ width:100%; height:110px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.03); margin-bottom:8px; background:#0b1418; }
 
-    .product{
-        background:rgba(0,0,0,0.85);
-        border:1px solid #7a0016;
-        border-radius:12px;
-        padding:12px;
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-        transition:transform .18s ease, box-shadow .18s ease;
-        position:relative;
-    }
-    .product:hover{ transform:translateY(-3px); box-shadow:0 0 18px rgba(180,0,35,0.45); }
+  .title{ font-weight:700; color:#ffc3c8; margin-bottom:6px; display:flex; align-items:center; gap:8px; font-size:14px; }
+  .title i{ font-size:12px; color:#ffdfe1; }
 
-    .product img{ width:100%; height:110px; object-fit:cover; border-radius:8px; border:1px solid #7a0016; margin-bottom:8px; background:#111; }
+  .info{ font-size:13px; color:#e6e6e6; margin-bottom:10px; line-height:1.3; }
+  .stock{ color:#ff7b85; font-weight:700; }
 
-    .title{ font-weight:700; color:#ff8790; margin-bottom:6px; display:flex; align-items:center; gap:8px; font-size:14px; }
-    .title i{ font-size:11px; color:#ffdfe1; } /* ícone do produto — menor */
+  .buy{ background:#7a0016; border:none; color:#fff; padding:8px 0; border-radius:8px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; transition:background .12s; }
+  .buy:hover{ background:#ff1a2a; }
 
-    .info{ font-size:13px; color:#ddd; margin-bottom:10px; line-height:1.3; }
-    .stock{ color:#ff4455; font-weight:700; }
+  .fav{ position:absolute; top:10px; right:10px; background:transparent; border:none; color:#ffd6d8; font-size:16px; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .fav.active{ color:#ff7b86; transform:scale(1.05); }
 
-    .buy{ background:#7a0016; border:none; color:#fff; padding:8px 0; border-radius:8px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; transition:background .12s; }
-    .buy:hover{ background:#ff1a2a; }
+  .low{ position:absolute; left:10px; top:10px; background:#ffdf8a; color:#000; padding:4px 6px; border-radius:8px; font-weight:700; font-size:12px; }
 
-    /* favoritar */
-    .fav{
-        position:absolute;
-        top:10px;
-        right:10px;
-        background:transparent;
-        border:none;
-        color:#ffd6d8;
-        font-size:16px;
-        cursor:pointer;
-        display:flex;
-        align-items:center;
-        gap:6px;
-    }
-    .fav.active{ color:#ff7b86; transform:scale(1.05); }
+  footer{ text-align:center; padding:18px 10px; color:#ccc; background:transparent; border-top:1px solid rgba(255,255,255,0.03); margin-top:28px; }
 
-    /* low stock badge */
-    .low{ position:absolute; left:10px; top:10px; background:#ffb84d; color:#000; padding:4px 6px; border-radius:8px; font-weight:700; font-size:12px; }
+  /* Instagram floating and modal */
+  .insta-btn{ position:fixed; right:18px; bottom:18px; background:linear-gradient(45deg,#E1306C,#C13584); color:#fff; border:none; padding:12px 14px; border-radius:999px; cursor:pointer; box-shadow:0 6px 18px rgba(200,0,80,0.18); display:flex; gap:8px; align-items:center; z-index:1200; }
+  .insta-modal{ position:fixed; right:18px; bottom:72px; width:340px; max-width:calc(100% - 40px); background:linear-gradient(180deg, rgba(5,10,12,0.96), rgba(8,12,16,0.96)); border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:12px; box-shadow:0 12px 40px rgba(0,0,0,0.6); display:none; z-index:1200; }
+  .insta-modal.show{ display:block; animation:pop .18s ease; }
+  @keyframes pop{ from{ transform:translateY(8px) scale(.98); opacity:0 } to{ transform:none; opacity:1 } }
+  .insta-modal h3{ margin:0 0 8px; color:#ffd6d8; font-size:16px; }
+  .insta-preview{ width:100%; height:160px; border-radius:8px; background:linear-gradient(135deg,#152129,#0c1417); display:flex; align-items:center; justify-content:center; color:#99a; font-size:14px; margin-bottom:8px; }
 
-    footer{ text-align:center; padding:18px 10px; color:#ccc; background:#050000; border-top:1px solid #7a0016; margin-top:28px; }
+  /* product modal */
+  .modal-backdrop{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1250; }
+  .modal-backdrop.show{ display:flex; background:rgba(0,0,0,0.45); }
+  .modal{ background:linear-gradient(180deg,#071217,#0f1a20); border:1px solid rgba(255,255,255,0.04); width:92%; max-width:520px; border-radius:12px; padding:16px; box-shadow:0 12px 40px rgba(0,0,0,0.6); color:#fff; }
 
-    /* Instagram floating button */
-    .insta-btn{
-        position:fixed; right:18px; bottom:18px;
-        background:linear-gradient(45deg,#E1306C,#C13584);
-        color:#fff; border:none; padding:12px 14px; border-radius:999px; cursor:pointer; box-shadow:0 6px 18px rgba(200,0,80,0.25); display:flex; gap:8px; align-items:center; z-index:1200;
-    }
-    .insta-modal{
-        position:fixed; right:18px; bottom:72px; width:320px; max-width:calc(100% - 40px); background:rgba(10,0,0,0.95); border:1px solid #7a0016; border-radius:12px; padding:12px; box-shadow:0 12px 40px rgba(0,0,0,0.6); display:none; z-index:1200;
-    }
-    .insta-modal.show{ display:block; animation:pop .18s ease; }
-    @keyframes pop{ from{ transform:translateY(8px) scale(.98); opacity:0 } to{ transform:none; opacity:1 } }
+  .toast{ position:fixed; left:50%; transform:translateX(-50%); bottom:22px; background:#111; color:#fff; padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); display:none; z-index:1300; }
 
-    .insta-modal h3{ margin:0 0 8px; color:#ffd6d8; font-size:16px; }
-    .insta-preview{ width:100%; height:160px; border-radius:8px; background:linear-gradient(135deg,#2b2b2b,#111); display:flex; align-items:center; justify-content:center; color:#999; font-size:14px; margin-bottom:8px; }
+  .highlight{ border:2px solid rgba(255,220,220,0.25); box-shadow:0 8px 30px rgba(255,60,80,0.06); }
 
-    /* toast */
-    .toast{ position:fixed; left:50%; transform:translateX(-50%); bottom:22px; background:#222; color:#fff; padding:10px 14px; border-radius:8px; border:1px solid #444; display:none; z-index:1300; }
-
-    /* destaque da oferta do dia */
-    .highlight{ border:2px solid #ffd6d8; box-shadow:0 8px 30px rgba(255,60,80,0.08); }
-
-    @media (max-width:600px){
-        header{ flex-direction:column; align-items:flex-start; gap:8px; padding:12px; }
-        .summary{ display:block; margin-left:0; }
-        .grid{ grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
-        .product img{ height:90px; }
-        .insta-modal{ right:10px; left:10px; bottom:76px; max-width:unset; width:auto; }
-    }
+  @media (max-width:600px){
+    header{ flex-direction:column; align-items:flex-start; gap:8px; padding:12px; }
+    .grid{ grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; }
+    .product img{ height:86px; }
+    .insta-modal{ right:10px; left:10px; bottom:76px; max-width:unset; width:auto; }
+  }
 </style>
 </head>
 
-<body style="background-image:url('SUA-IMAGEM-DE-FUNDO.jpg');">
+<body>
 
 <header>
-    <div class="brand">
-        <img src="20260105_165145_1.jpg" alt="Logo da Mimyy Store">
-        <div>
-            <h1>MIMYY STORE</h1>
-            <div class="tagline">Atendimento via WhatsApp — ofertas e favs rápidas ✨</div>
-        </div>
+  <div class="brand">
+    <img src="20260105_165145_1.jpg" alt="Logo Mimyy Store">
+    <div>
+      <h1>MIMYY STORE</h1>
+      <div class="tagline">Atendimento via WhatsApp — ofertas e favs rápidas ✨</div>
     </div>
+  </div>
 
-    <div style="display:flex;align-items:center;gap:12px;">
-        <div class="summary" aria-hidden="true">
-            <div class="badge-summary">Nitro: <span id="summary-nitro">0</span></div>
-            <div class="badge-summary">Antigas: <span id="summary-antigas">0</span></div>
-        </div>
-
-        <div class="controls">
-            <button class="btn small ghost" id="dealBtn" title="Oferta do dia"><i class="fa-solid fa-star"></i> Oferta do dia</button>
-            <button class="btn small" id="visitInstagram" title="Visite-nos no Instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
-        </div>
-    </div>
+  <div class="controls">
+    <button class="btn small ghost" id="dealBtn" title="Oferta do dia"><i class="fa-solid fa-star"></i> Oferta do dia</button>
+    <button class="btn small" id="visitInstagram" title="Visite-nos no Instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+  </div>
 </header>
 
 <div class="container">
 
-    <!-- 1 — NITRO LINK -->
-    <div class="category" data-name="nitro">
-        <h2><span><i class="fa-brands fa-discord"></i> NITRO LINK <span class="count-badge" id="count-nitro">0</span></span></h2>
-        <div class="grid">
+  <!-- 1 — NITRO LINK -->
+  <div class="category" data-name="nitro">
+    <h2>
+      <span class="cat-icon"><i class="fa-brands fa-discord"></i> NITRO LINK</span>
+      <i class="fa-solid fa-chevron-down toggle" aria-hidden="true"></i>
+    </h2>
+    <div class="grid">
+      <div class="product" data-sku="nitro-tri" data-price="6,99" data-stock="70">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="LINK NITRO_20260105_201640_0000.png" alt="Nitro trimestral">
+        <div class="title"><i class="fa-brands fa-discord"></i> Nitro Link trimestral</div>
+        <div class="info">Preço: R$ 6,99<br><span class="stock">Estoque: 70</span></div>
+        <button class="buy" data-name="Nitro Link trimestral">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="nitro-tri">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="LINK NITRO_20260105_201640_0000.png" alt="Nitro trimestral">
-                <div class="title"><i class="fa-brands fa-discord"></i> Nitro Link trimestral</div>
-                <div class="info">Preço: R$ 6,99<br><span class="stock">Estoque: 70</span></div>
-                <button class="buy" onclick="comprar('Nitro Link trimestral')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="nitro-mes">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="LINK NITRO_20260105_201640_0000.png" alt="Nitro mensal">
-                <div class="title"><i class="fa-brands fa-discord"></i> Nitro Link mensal</div>
-                <div class="info">Preço: R$ 5,99<br><span class="stock">Estoque: 3</span></div>
-                <button class="buy" onclick="comprar('Nitro Link mensal')">Comprar</button>
-            </div>
-
-        </div>
+      <div class="product" data-sku="nitro-mes" data-price="5,99" data-stock="3">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="LINK NITRO_20260105_201640_0000.png" alt="Nitro mensal">
+        <div class="title"><i class="fa-brands fa-discord"></i> Nitro Link mensal</div>
+        <div class="info">Preço: R$ 5,99<br><span class="stock">Estoque: 3</span></div>
+        <button class="buy" data-name="Nitro Link mensal">Comprar</button>
+      </div>
     </div>
+  </div>
 
-    <!-- 2 — CONTA NITRADA -->
-    <div class="category" data-name="nitrada">
-        <h2><span><i class="fa-brands fa-discord"></i> CONTA NITRADA <span class="count-badge" id="count-nitrada">0</span></span></h2>
-        <div class="grid">
+  <!-- 2 — CONTA NITRADA -->
+  <div class="category" data-name="nitrada">
+    <h2>
+      <span class="cat-icon"><i class="fa-brands fa-discord"></i> CONTA NITRADA</span>
+      <i class="fa-solid fa-chevron-down toggle" aria-hidden="true"></i>
+    </h2>
+    <div class="grid">
+      <div class="product" data-sku="conta-tri" data-price="15,90" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
+        <div class="title"><i class="fa-brands fa-discord"></i> Conta nitrada trimestral</div>
+        <div class="info">Preço: R$ 15,90<br><span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta nitrada trimestral">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-tri">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
-                <div class="title"><i class="fa-brands fa-discord"></i> Conta nitrada trimestral</div>
-                <div class="info">Preço: R$ 15,90<br><span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta nitrada trimestral')">Comprar</button>
-            </div>
+      <div class="product" data-sku="conta-mes" data-price="6,49" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
+        <div class="title"><i class="fa-brands fa-discord"></i> Conta nitrada mensal</div>
+        <div class="info">Preço: R$ 6,49<br><span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta nitrada mensal">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-mes">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
-                <div class="title"><i class="fa-brands fa-discord"></i> Conta nitrada mensal</div>
-                <div class="info">Preço: R$ 6,49<br><span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta nitrada mensal')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="conta-virgem">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
-                <div class="title"><i class="fa-brands fa-discord"></i> Conta virgem + 30 dias</div>
-                <div class="info">Preço: R$ 1,99<br><span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta virgem + 30 dias')">Comprar</button>
-            </div>
-
-        </div>
+      <div class="product" data-sku="conta-virgem" data-price="1,99" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202445_0000.png" alt="">
+        <div class="title"><i class="fa-brands fa-discord"></i> Conta virgem + 30 dias</div>
+        <div class="info">Preço: R$ 1,99<br><span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta virgem + 30 dias">Comprar</button>
+      </div>
     </div>
+  </div>
 
-    <!-- 3 — CONTAS ANTIGAS -->
-    <div class="category" data-name="antigas">
-        <h2><span><i class="fa-brands fa-discord"></i> CONTAS ANTIGAS <span class="count-badge" id="count-antigas">0</span></span></h2>
-        <div class="grid">
+  <!-- 3 — CONTAS ANTIGAS -->
+  <div class="category" data-name="antigas">
+    <h2>
+      <span class="cat-icon"><i class="fa-brands fa-discord"></i> CONTAS ANTIGAS</span>
+      <i class="fa-solid fa-chevron-down toggle" aria-hidden="true"></i>
+    </h2>
+    <div class="grid">
+      <div class="product" data-sku="conta-2016" data-price="59,90" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
+        <div class="title">Conta 2016</div>
+        <div class="info">R$ 59,90 — <span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta 2016">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-2016">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
-                <div class="title">Conta 2016</div>
-                <div class="info">R$ 59,90 — <span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta 2016')">Comprar</button>
-            </div>
+      <div class="product" data-sku="conta-2017" data-price="24,90" data-stock="4">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
+        <div class="title">Conta 2017</div>
+        <div class="info">R$ 24,90 — <span class="stock">Estoque: 4</span></div>
+        <button class="buy" data-name="Conta 2017">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-2017">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
-                <div class="title">Conta 2017</div>
-                <div class="info">R$ 24,90 — <span class="stock">Estoque: 4</span></div>
-                <button class="buy" onclick="comprar('Conta 2017')">Comprar</button>
-            </div>
+      <div class="product" data-sku="conta-2018" data-price="18,90" data-stock="4">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
+        <div class="title">Conta 2018</div>
+        <div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div>
+        <button class="buy" data-name="Conta 2018">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-2018">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
-                <div class="title">Conta 2018</div>
-                <div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div>
-                <button class="buy" onclick="comprar('Conta 2018')">Comprar</button>
-            </div>
+      <div class="product" data-sku="conta-2019" data-price="13,90" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
+        <div class="title">Conta 2019</div>
+        <div class="info">R$ 13,90 — <span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta 2019">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="conta-2019">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
-                <div class="title">Conta 2019</div>
-                <div class="info">R$ 13,90 — <span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta 2019')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="conta-2020">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
-                <div class="title">Conta 2020</div>
-                <div class="info">R$ 10,90 — <span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Conta 2020')">Comprar</button>
-            </div>
-
-        </div>
+      <div class="product" data-sku="conta-2020" data-price="10,90" data-stock="0">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="CONTA NITRADA _20260105_202837_0000.png" alt="">
+        <div class="title">Conta 2020</div>
+        <div class="info">R$ 10,90 — <span class="stock">Estoque: 0</span></div>
+        <button class="buy" data-name="Conta 2020">Comprar</button>
+      </div>
     </div>
+  </div>
 
-    <!-- 4 — ASSINATURAS (com ícone Netflix) -->
-    <div class="category" data-name="assinaturas">
-        <h2><span><i class="fa-brands fa-netflix"></i> ASSINATURAS <span class="count-badge" id="count-assinaturas">0</span></span></h2>
-        <div class="grid">
+  <!-- 4 — ASSINATURAS (com SVG Netflix inline) -->
+  <div class="category" data-name="assinaturas">
+    <h2>
+      <span class="cat-icon">
+        <!-- SVG simples parecido com o "N" da Netflix (garante exibição) -->
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="vertical-align:middle">
+          <rect x="3" y="0" width="3.5" height="24" fill="#E50914"></rect>
+          <rect x="17.5" y="0" width="3.5" height="24" fill="#E50914"></rect>
+          <rect x="9" y="0" width="5" height="24" transform="skewX(-18)" fill="#E50914"></rect>
+        </svg>
+        ASSINATURAS
+      </span>
+      <i class="fa-solid fa-chevron-down toggle" aria-hidden="true"></i>
+    </h2>
+    <div class="grid">
+      <div class="product" data-sku="netflix" data-price="7,99" data-stock="5">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="Netflix _20260105_204747_0000.png" alt="Netflix">
+        <div class="title">Netflix</div>
+        <div class="info">R$ 7,99 — <span class="stock">Estoque: 5</span></div>
+        <button class="buy" data-name="Netflix">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="netflix">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Netflix _20260105_204747_0000.png" alt="Netflix">
-                <div class="title">Netflix</div>
-                <div class="info">R$ 7,99 — <span class="stock">Estoque: 5</span></div>
-                <button class="buy" onclick="comprar('Netflix')">Comprar</button>
-            </div>
+      <!-- outros produtos... (paramount, disney, hbo, etc.) -->
+      <div class="product" data-sku="paramount" data-price="8,49" data-stock="2">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="Paramount_20260105_204838_0000.png" alt="Paramount">
+        <div class="title">Paramount</div>
+        <div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div>
+        <button class="buy" data-name="Paramount">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="paramount">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Paramount_20260105_204838_0000.png" alt="Paramount">
-                <div class="title">Paramount</div>
-                <div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div>
-                <button class="buy" onclick="comprar('Paramount')">Comprar</button>
-            </div>
+      <div class="product" data-sku="disney" data-price="8,49" data-stock="2">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="Disney _20260105_205139_0000.png" alt="Disney+">
+        <div class="title">Disney+</div>
+        <div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div>
+        <button class="buy" data-name="Disney+">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="disney">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Disney _20260105_205139_0000.png" alt="Disney+">
-                <div class="title">Disney+</div>
-                <div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div>
-                <button class="buy" onclick="comprar('Disney+')">Comprar</button>
-            </div>
+      <!-- ... adicione os demais produtos como antes ... -->
 
-            <div class="product" data-sku="hbo">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="HBO Max _20260105_204914_0000.png" alt="HBO Max">
-                <div class="title">HBO Max</div>
-                <div class="info">R$ 8,99 — <span class="stock">Estoque: 4</span></div>
-                <button class="buy" onclick="comprar('HBO Max')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="crunchyroll">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Crunchyroll _20260105_204949_0000.png" alt="Crunchyroll">
-                <div class="title">Crunchyroll</div>
-                <div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div>
-                <button class="buy" onclick="comprar('Crunchyroll')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="prime">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Prime video _20260105_205032_0000.png" alt="Amazon Prime">
-                <div class="title">Amazon Prime</div>
-                <div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div>
-                <button class="buy" onclick="comprar('Amazon Prime')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="youtube">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Youtube_20260105_210858_0000.png" alt="YouTube Premium">
-                <div class="title">YouTube Premium + Music</div>
-                <div class="info">R$ 8,49 — <span class="stock">Estoque: 1</span></div>
-                <button class="buy" onclick="comprar('YouTube Premium + Music')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="canva">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Canva_20260105_210939_0000.png" alt="Canva">
-                <div class="title">Canva Pro 30 dias</div>
-                <div class="info">R$ 5,49 — <span class="stock">Estoque: 17</span></div>
-                <button class="buy" onclick="comprar('Canva Pro 30 dias')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="spotify-30">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Spotify _20260105_205105_0000.png" alt="Spotify 30 dias">
-                <div class="title">Spotify 30 dias</div>
-                <div class="info">R$ 5,49 — <span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Spotify 30 dias')">Comprar</button>
-            </div>
-
-            <div class="product" data-sku="spotify-3m">
-                <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
-                <img src="Spotify _20260105_205105_0000.png" alt="Spotify 3 meses">
-                <div class="title">Spotify 3 meses</div>
-                <div class="info">R$ 11,99 — <span class="stock">Estoque: 0</span></div>
-                <button class="buy" onclick="comprar('Spotify 3 meses')">Comprar</button>
-            </div>
-
-        </div>
     </div>
+  </div>
 
-    <!-- 5 — IA’s (com ícone de robô para ChatGPT) -->
-    <div class="category" data-name="ias">
-        <h2><span><i class="fa-solid fa-robot"></i> IA’s <span class="count-badge" id="count-ias">0</span></span></h2>
-        <div class="grid">
+  <!-- 5 — IA’s (ícone robô do FontAwesome) -->
+  <div class="category" data-name="ias">
+    <h2>
+      <span class="cat-icon"><i class="fa-solid fa-robot"></i> IA’s</span>
+      <i class="fa-solid fa-chevron-down toggle" aria-hidden="true"></i>
+    </h2>
+    <div class="grid">
+      <div class="product" data-sku="chatgpt-12m" data-price="18,90" data-stock="4">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="Chat gpt_20260105_211026_0000.png" alt="ChatGPT Go">
+        <div class="title"><i class="fa-solid fa-robot"></i> ChatGPT Go 12 meses</div>
+        <div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div>
+        <button class="buy" data-name="ChatGPT Go 12 meses">Comprar</button>
+      </div>
 
-            <div class="product" data-sku="chatgpt-12m">
-                <button class="fav" aria-
+      <div class="product" data-sku="google-ai" data-price="7,99" data-stock="2">
+        <button class="fav" aria-pressed="false" title="Favoritar"><i class="fa-regular fa-heart"></i></button>
+        <img src="Ia do Google _20260105_211241_0000.png" alt="Google AI">
+        <div class="title"><i class="fa-solid fa-robot"></i> Google AI Pro 1 mês</div>
+        <div class="info">R$ 7,99 — <span class="stock">Estoque: 2</span></div>
+        <button class="buy" data-name="Google AI Pro 1 mês">Comprar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Instagram floating -->
+<button class="insta-btn" id="openInsta" aria-expanded="false"><i class="fa-brands fa-instagram"></i><span style="margin-left:6px">Visite-nos no Instagram</span></button>
+
+<div class="insta-modal" id="instaModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <h3>Siga @mimyy.store no Instagram</h3>
+  <div class="insta-preview" id="instaPreview">Preview do Instagram (substitua por feed/widget)</div>
+  <p style="color:#ffd6d8; font-size:13px; margin:6px 0 10px;">Confira novidades, promoções e stories diários — participe comentando!</p>
+  <div style="display:flex;gap:8px;justify-content:space-between;">
+    <a href="https://instagram.com/mimyy.store" target="_blank" rel="noopener" class="btn"><i class="fa-brands fa-instagram"></i> Seguir</a>
+    <button class="btn ghost" id="closeInsta">Fechar</button>
+  </div>
+</div>
+
+<!-- product modal (Oferta do dia / detalhes) -->
+<div class="modal-backdrop" id="productBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="productTitle">
+    <div style="display:flex;gap:12px;">
+      <img id="modalImg" src="" alt="" style="width:120px;height:84px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.04);">
+      <div style="flex:1;">
+        <h3 id="productTitle" style="margin:0 0 8px;color:#ffd6d8;"></h3>
+        <div id="productPrice" style="font-weight:700;color:#ffc3c8;margin-bottom:6px;"></div>
+        <div id="productStock" style="color:#e6e6e6;margin-bottom:10px;"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn" id="modalBuy">Comprar</button>
+          <button class="btn ghost" id="modalClose">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Mensagem</div>
+
+<footer>
+  © 2026 — MIMYY STORE — Todos os direitos reservados
+</footer>
+
+<script>
+  // WhatsApp comprar
+  function openWhatsApp(produto){
+    const telefone = "5533997305062";
+    const msg = encodeURIComponent("Olá! Tenho interesse em comprar: " + produto);
+    window.location.href = "https://wa.me/" + telefone + "?text=" + msg;
+  }
+
+  function showToast(text, time = 2000){
+    const t = document.getElementById('toast');
+    t.textContent = text;
+    t.style.display = 'block';
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(()=> t.style.display = 'none', time);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+
+    // toggles de categorias (acessível)
+    document.querySelectorAll('.category').forEach((cat, idx) => {
+      const h2 = cat.querySelector('h2');
+      const grid = cat.querySelector('.grid');
+      if (!h2) return;
+      const toggleIcon = h2.querySelector('.toggle');
+      if (!toggleIcon){
+        const icon = document.createElement('i');
