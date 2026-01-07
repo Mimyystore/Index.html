@@ -51,14 +51,15 @@
         padding:0 15px;
     }
 
+    /* categorias reduzidas */
     .category{
-        margin-bottom:35px;
+        margin-bottom:20px; /* menor espaço entre categorias */
         background:rgba(20,0,0,0.75);
         border:1px solid #7a0016;
-        border-radius:14px;
-        padding:20px;
+        border-radius:10px; /* menor arredondamento */
+        padding:12px; /* padding reduzido */
         backdrop-filter: blur(3px);
-        box-shadow:0 0 18px rgba(120,0,25,0.5);
+        box-shadow:0 0 12px rgba(120,0,25,0.45); /* sombra mais suave */
     }
 
     /* título das categorias — agora clicável para abrir/fechar */
@@ -66,8 +67,8 @@
         color:#ff2b3b;
         border-left:6px solid #7a0016;
         padding-left:10px;
-        margin-bottom:18px;
-
+        margin-bottom:14px;
+        font-size:20px; /* ligeiramente menor */
         display:flex;
         align-items:center;
         justify-content:space-between;
@@ -78,14 +79,14 @@
 
     /* ícone principal da categoria — reduzido */
     .category h2 i.category-icon{
-        font-size:14px; /* <--- tamanho reduzido do ícone da categoria */
+        font-size:12px; /* tamanho reduzido do ícone da categoria */
         color:#ffd0d3;
         margin-right:8px;
     }
 
     .toggle {
         color:#ffd0d3;
-        font-size:14px; /* mantenha menor também */
+        font-size:12px; /* menor também */
         transition:transform .2s ease;
         margin-left:10px;
     }
@@ -93,9 +94,8 @@
     /* área que contém os produtos — animação via max-height */
     .grid{
         display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-        gap:18px;
-
+        grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); /* containers um pouco menores */
+        gap:14px;
         overflow:hidden;
         transition: max-height .25s ease;
     }
@@ -111,8 +111,8 @@
     .product{
         background:rgba(0,0,0,0.85);
         border:1px solid #7a0016;
-        border-radius:14px;
-        padding:14px;
+        border-radius:12px;
+        padding:10px; /* padding reduzido nos produtos */
         display:flex;
         flex-direction:column;
         justify-content:space-between;
@@ -121,16 +121,16 @@
 
     .product:hover{
         transform:translateY(-4px);
-        box-shadow:0 0 22px rgba(180,0,35,0.6);
+        box-shadow:0 0 18px rgba(180,0,35,0.5);
     }
 
     .product img{
         width:100%;
-        height:130px;
+        height:110px; /* altura menor */
         object-fit:cover;
-        border-radius:10px;
+        border-radius:8px;
         border:1px solid #7a0016;
-        margin-bottom:10px;
+        margin-bottom:8px;
         background:#111;
     }
 
@@ -145,7 +145,7 @@
 
     /* ícone do título do produto — reduzido */
     .title i{
-        font-size:12px; /* <--- tamanho reduzido do ícone dos produtos */
+        font-size:11px; /* tamanho reduzido do ícone dos produtos */
         color:#ffdfe1;
     }
 
@@ -175,13 +175,37 @@
         background:#ff1a2a;
     }
 
+    /* área social (Instagram) */
+    .social{
+        text-align:center;
+        margin:18px 0 0;
+    }
+
+    .social a{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        background:linear-gradient(90deg,#7a0016,#ff1a2a);
+        padding:10px 14px;
+        border-radius:10px;
+        color:#fff;
+        text-decoration:none;
+        font-weight:700;
+        border:1px solid rgba(255,255,255,0.06);
+        box-shadow:0 4px 12px rgba(0,0,0,0.45);
+    }
+
+    .social i{ font-size:18px; color:#fff; }
+
+    .insta-user{ color:#ffd8da; margin-left:4px; font-weight:800; }
+
     footer{
         text-align:center;
         padding:25px 10px;
         color:#ccc;
         background:#050000;
         border-top:1px solid #7a0016;
-        margin-top:40px;
+        margin-top:28px;
     }
 
     @media (max-width:600px){
@@ -329,59 +353,67 @@ document.addEventListener('DOMContentLoaded', function() {
         <h2><i class="fa-brands fa-discord"></i> CONTAS ANTIGAS</h2>
         <div class="grid">
 
-            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2016</div><div class="info">R$ 59,90 — <span class="stock">Estoque: 0</span></div><a class="buy" onclick="comprar('Conta 2016')">Comprar</a></div>
+            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2016</div><div class="info">R$ 59,90 — <span class="stock">Estoque: 0</span></div>[...]
 
-            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2017</div><div class="info">R$ 24,90 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('Conta 2017')">Comprar</a></div>
+            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2017</div><div class="info">R$ 24,90 — <span class="stock">Estoque: 4</span></div>[...]
 
-            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2018</div><div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('Conta 2018')">Comprar</a></div>
+            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2018</div><div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div>[...]
 
-            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2019</div><div class="info">R$ 13,90 — <span class="stock">Estoque: 0</span></div><a class="buy" onclick="comprar('Conta 2019')">Comprar</a></div>
+            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2019</div><div class="info">R$ 13,90 — <span class="stock">Estoque: 0</span></div>[...]
 
-            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2020</div><div class="info">R$ 10,90 — <span class="stock">Estoque: 0</span></div><a class="buy" onclick="comprar('Conta 2020')">Comprar</a></div>
-
-        </div>
-    </div>
-
-    <!-- 4 — ASSINATURAS -->
-    <div class="category">
-        <h2>ASSINATURAS</h2>
-        <div class="grid">
-
-            <div class="product"><img src="Netflix _20260105_204747_0000.png"><div class="title">Netflix</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 5</span></div><a class="buy" onclick="comprar('Netflix')">Comprar</a></div>
-
-            <div class="product"><img src="Paramount_20260105_204838_0000.png"><div class="title">Paramount</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div><a class="buy" onclick="comprar('Paramount')">Comprar</a></div>
-
-            <div class="product"><img src="Disney _20260105_205139_0000.png"><div class="title">Disney+</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div><a class="buy" onclick="comprar('Disney+')">Comprar</a></div>
-
-            <div class="product"><img src="HBO Max _20260105_204914_0000.png"><div class="title">HBO Max</div><div class="info">R$ 8,99 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('HBO Max')">Comprar</a></div>
-
-            <div class="product"><img src="Crunchyroll _20260105_204949_0000.png"><div class="title">Crunchyroll</div><div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('Crunchyroll')">Comprar</a></div>
-
-            <div class="product"><img src="Prime video _20260105_205032_0000.png"><div class="title">Amazon Prime</div><div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('Amazon Prime')">Comprar</a></div>
-
-            <div class="product"><img src="Youtube_20260105_210858_0000.png"><div class="title">YouTube Premium + Music</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 1</span></div><a class="buy" onclick="comprar('YouTube Premium + Music')">Comprar</a></div>
-
-            <div class="product"><img src="Canva_20260105_210939_0000.png"><div class="title">Canva Pro 30 dias</div><div class="info">R$ 5,49 — <span class="stock">Estoque: 17</span></div><a class="buy" onclick="comprar('Canva Pro 30 dias')">Comprar</a></div>
-
-            <div class="product"><img src="Spotify _20260105_205105_0000.png"><div class="title">Spotify 30 dias</div><div class="info">R$ 5,49 — <span class="stock">Estoque: 0</span></div><a class="buy" onclick="comprar('Spotify 30 dias')">Comprar</a></div>
-
-            <div class="product"><img src="Spotify _20260105_205105_0000.png"><div class="title">Spotify 3 meses</div><div class="info">R$ 11,99 — <span class="stock">Estoque: 0</span></div><a class="buy" onclick="comprar('Spotify 3 meses')">Comprar</a></div>
+            <div class="product"><img src="CONTA NITRADA _20260105_202837_0000.png" alt=""><div class="title">Conta 2020</div><div class="info">R$ 10,90 — <span class="stock">Estoque: 0</span></div>[...]
 
         </div>
     </div>
 
-    <!-- 5 — IA’s -->
+    <!-- 4 — ASSINATURAS (com ícone Netflix) -->
     <div class="category">
-        <h2>IA’s</h2>
+        <h2><i class="fa-brands fa-netflix"></i> ASSINATURAS</h2>
         <div class="grid">
 
-            <div class="product"><img src="Chat gpt_20260105_211026_0000.png"><div class="title">ChatGPT Go 12 meses</div><div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div><a class="buy" onclick="comprar('ChatGPT Go 12 meses')">Comprar</a></div>
+            <div class="product"><img src="Netflix _20260105_204747_0000.png"><div class="title">Netflix</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 5</span></div><a class="buy" on[...]
 
-            <div class="product"><img src="Ia do Google _20260105_211241_0000.png"><div class="title">Google AI Pro 1 mês</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 2</span></div><a class="buy" onclick="comprar('Google AI Pro 1 mês')">Comprar</a></div>
+            <div class="product"><img src="Paramount_20260105_204838_0000.png"><div class="title">Paramount</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div><a class="buy"[...]
 
-            <div class="product"><img src="Perplexity _20260105_211116_0000.png"><div class="title">Perplexity mensal</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 3</span></div><a class="buy" onclick="comprar('Perplexity mensal')">Comprar</a></div>
+            <div class="product"><img src="Disney _20260105_205139_0000.png"><div class="title">Disney+</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 2</span></div><a class="buy" onc[...]
+
+            <div class="product"><img src="HBO Max _20260105_204914_0000.png"><div class="title">HBO Max</div><div class="info">R$ 8,99 — <span class="stock">Estoque: 4</span></div><a class="buy" on[...]
+
+            <div class="product"><img src="Crunchyroll _20260105_204949_0000.png"><div class="title">Crunchyroll</div><div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div><a class=[...]
+
+            <div class="product"><img src="Prime video _20260105_205032_0000.png"><div class="title">Amazon Prime</div><div class="info">R$ 6,49 — <span class="stock">Estoque: 4</span></div><a class[...]
+
+            <div class="product"><img src="Youtube_20260105_210858_0000.png"><div class="title">YouTube Premium + Music</div><div class="info">R$ 8,49 — <span class="stock">Estoque: 1</span></div><a[...]
+
+            <div class="product"><img src="Canva_20260105_210939_0000.png"><div class="title">Canva Pro 30 dias</div><div class="info">R$ 5,49 — <span class="stock">Estoque: 17</span></div><a class=[...]
+
+            <div class="product"><img src="Spotify _20260105_205105_0000.png"><div class="title">Spotify 30 dias</div><div class="info">R$ 5,49 — <span class="stock">Estoque: 0</span></div><a class=[...]
+
+            <div class="product"><img src="Spotify _20260105_205105_0000.png"><div class="title">Spotify 3 meses</div><div class="info">R$ 11,99 — <span class="stock">Estoque: 0</span></div><a class[...]
 
         </div>
+    </div>
+
+    <!-- 5 — IA’s (com ícone de robô) -->
+    <div class="category">
+        <h2><i class="fa-solid fa-robot"></i> IA’s</h2>
+        <div class="grid">
+
+            <div class="product"><img src="Chat gpt_20260105_211026_0000.png"><div class="title">ChatGPT Go 12 meses</div><div class="info">R$ 18,90 — <span class="stock">Estoque: 4</span></div><a c[...]
+
+            <div class="product"><img src="Ia do Google _20260105_211241_0000.png"><div class="title">Google AI Pro 1 mês</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 2</span></div>[...]
+
+            <div class="product"><img src="Perplexity _20260105_211116_0000.png"><div class="title">Perplexity mensal</div><div class="info">R$ 7,99 — <span class="stock">Estoque: 3</span></div><a c[...]
+
+        </div>
+    </div>
+
+    <!-- seção social: Instagram -->
+    <div class="social" aria-label="Visite-nos no Instagram">
+        <a href="https://instagram.com/mimyy.store" target="_blank" rel="noopener noreferrer" aria-label="Visite-nos no Instagram @mimyy.store">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            Visite-nos no Instagram <span class="insta-user">@mimyy.store</span>
+        </a>
     </div>
 
 </div>
@@ -391,4 +423,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </footer>
 
 </body>
- </html>
+                                                                                                                                                                          </html>
